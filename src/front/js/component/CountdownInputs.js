@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SelectedSong from "./SelectedSong";
 
 function CountdownInputs({ onStartCountdown }) {
   const [hours, setHours] = useState("");
@@ -10,55 +11,51 @@ function CountdownInputs({ onStartCountdown }) {
     onStartCountdown(countdownTime);
   };
 
-  const handleMinutesChange = (e) => {
-    const newMinutes = parseInt(e.target.value, 10);
-    if (!isNaN(newMinutes) && newMinutes >= 0 && newMinutes <= 59) {
-      setMinutes(newMinutes);
-    }
-  };
-
-  const handleSecondsChange = (e) => {
-    const newSeconds = parseInt(e.target.value, 10);
-    if (!isNaN(newSeconds) && newSeconds >= 0 && newSeconds <= 59) {
-      setSeconds(newSeconds);
-    }
-  };
-
   return (
-    <div className="countdown-container">
-      <div className="countdown-items col-2">
-        <div className="countdown-inputs d-flex justify-content-between">
+    <div className="countdown-control">
+      <div className="center-content">
+        <div className="countdown-inputs d-flex">
           <div>
             <input
               type="number"
               placeholder="Hours"
-              onChange={(e) => setHours(e.target.value)}
+              value={hours}
+              onChange={(e) => {
+                const value = Math.max(0, parseInt(e.target.value));
+                setHours(value);
+              }}
             />
           </div>
           <div>
             <input
               type="number"
               placeholder="Minutes"
-              onChange={handleMinutesChange}
+              value={minutes}
+              onChange={(e) => {
+                let value = parseInt(e.target.value);
+                value = Math.max(0, Math.min(59, value)); // Ensure value is between 0 and 59
+                setMinutes(value);
+              }}
             />
           </div>
           <div>
             <input
               type="number"
               placeholder="Seconds"
-              onChange={handleSecondsChange}
+              value={seconds}
+              onChange={(e) => {
+                let value = parseInt(e.target.value);
+                value = Math.max(0, Math.min(59, value)); // Ensure value is between 0 and 59
+                setSeconds(value);
+              }}
             />
           </div>
         </div>
-        <div className="countdown-labels d-flex justify-content-between">
-          <div>H</div>
-          <div>Min</div>
-          <div>Sec</div>
-        </div>
+        <button className="button" onClick={handleStartClick}>
+          Start countdown
+        </button>
+        <SelectedSong />
       </div>
-      <button className="button" onClick={handleStartClick}>
-        Start countdown
-      </button>
     </div>
   );
 }

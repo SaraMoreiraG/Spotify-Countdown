@@ -6,12 +6,20 @@ h1 {
   font-family: "Rubik Moonrocks", cursive;
   font-size: 5em;
 }
+h2 {
+  text-transform: uppercase;
+  font-family: "Rubik Moonrocks", cursive;
+  font-size: 2em;
+}
+
 
 /* -------------------------------------------------------
                      SECTIONS
 -------------------------------------------------------- */
 .authorization,
-.search {
+.search,
+.countdown-control,
+.countdown-display {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,7 +34,9 @@ h1 {
   justify-content: center;
 }
 .authorization::before,
-.search::before {
+.search::before,
+.countdown-control::before,
+.countdown-display::before {
   content: "";
   position: absolute;
   top: 0;
@@ -39,8 +49,13 @@ h1 {
 .authorization {
   background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-rachael-334843_700x700.jpg?v=1678512150");
 }
-.search {
+.search,
+.countdown-control {
   background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-mike-830029_700x700.jpg?v=1678512151");
+}
+.countdown-display {
+  padding-top: 20px;
+  background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-izzy-331927_700x700.jpg?v=1678512151");
 }
 .center-content {
   text-align: center;
@@ -72,13 +87,36 @@ h1 {
   background-color: #fdde48;
 }
 
+/* -------------------------------------------------------
+                     INPUTS
+-------------------------------------------------------- */
 .search input {
   padding: 10px 20px;
   border-radius: 4px;
   margin-right: 5px;
   font-family: "Rubik", sans-serif;
 }
-
+.countdown-control input {
+  height: 200px;
+  width: 150px;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-family: "Rubik", sans-serif;
+  text-transform: uppercase;
+  background-color: #507675;
+  border: solid 3px #507675;
+  color: #fff;
+}
+.countdown-control input::placeholder {
+  color: #fff; /* Change this to the desired color */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 /* -------------------------------------------------------
                      SCROLL LIST
 -------------------------------------------------------- */
@@ -130,4 +168,81 @@ h1 {
 
 .search ul::-webkit-scrollbar-thumb:hover {
   background: #be866e; /* Thumb color on hover */
+}
+
+.countdown-inputs {
+  display: flex;
+  gap: 10px; /* Add gap between the input containers */
+}
+
+/* -------------------------------------------------------
+                     SELECTED SONG
+-------------------------------------------------------- */
+
+.selected-song-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  color: #fff;
+  z-index: 100;
+}
+
+.selected-song-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+
+.selected-song-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 20px;
+}
+
+.selected-song-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.selected-song-details button {
+  align-self: flex-end;
+}
+
+.selected-song-details img {
+  height: 100px;
+  width: 100px;
+  margin-right: 10px;
+}
+.song-title {
+  font-size: 24px;
+}
+
+/* -------------------------------------------------------
+                     COUNTDOWN
+-------------------------------------------------------- */
+.countdown-time {
+  display: flex;
+  gap: 10px;
+  margin: 30px 0px;
+}
+.time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 150px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+  font-family: "Rubik", sans-serif;
+  font-size: 25px;
 }

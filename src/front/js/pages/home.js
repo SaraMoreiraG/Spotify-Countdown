@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import SpotifyAuth from "../component/SpotifyAuth";
 import SpotifySearch from "../component/SpotifySearch";
 import SelectedSong from "../component/SelectedSong";
@@ -6,14 +7,10 @@ import CountdownInputs from "../component/CountdownInputs";
 import CountdownDisplay from "../component/CountdownDisplay";
 
 export const Home = () => {
+  const { store } = useContext(Context);
   const accessToken = localStorage.getItem("spotifyAccessToken");
-  const [selectedSong, setSelectedSong] = useState(null);
   const [countdownTime, setCountdownTime] = useState(null);
   const [countdownStarted, setCountdownStarted] = useState(false);
-
-  const handleSongSelect = (song) => {
-    setSelectedSong(song);
-  };
 
   const handleStartCountdown = (time) => {
     setCountdownTime(time);
@@ -26,22 +23,20 @@ export const Home = () => {
         <SpotifyAuth />
       ) : (
         <div>
-          {!selectedSong ? (
-            <SpotifySearch
-              onSelect={handleSongSelect}
-              onStartCountdown={handleStartCountdown}
-            />
+          {!store.selectedSong ? (
+            <SpotifySearch />
           ) : (
             <div>
-              {!countdownStarted ? ( // Only show CountdownInputs if countdown hasn't started
-                <>
-                  <CountdownInputs onStartCountdown={handleStartCountdown} />
-                  <SelectedSong selectedSong={selectedSong} />
-                </>
+              <SelectedSong />
+              {!countdownStarted ? (
+                <CountdownInputs onStartCountdown={handleStartCountdown} />
               ) : (
                 <CountdownDisplay
-                  selectedSong={selectedSong}
-                  countdownTime={countdownTime}
+                  totalSeconds={
+                    countdownTime.hours * 3600 +
+                    countdownTime.minutes * 60 +
+                    countdownTime.seconds
+                  }
                 />
               )}
             </div>

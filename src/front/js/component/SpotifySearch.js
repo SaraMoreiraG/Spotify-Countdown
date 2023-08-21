@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import axios from "axios";
 import CountdownInputs from "./CountdownInputs"; // Import the CountdownInputs component
 
-function SpotifySearch({ onSelect, onStartCountdown }) {
+function SpotifySearch() {
+  const { actions } = useContext(Context);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const accessToken = localStorage.getItem("spotifyAccessToken");
@@ -30,10 +32,6 @@ function SpotifySearch({ onSelect, onStartCountdown }) {
     }
   };
 
-  const handleSongSelect = (song) => {
-    onSelect(song);
-  };
-
   return (
     <div className="search">
       <div className="center-content">
@@ -50,7 +48,7 @@ function SpotifySearch({ onSelect, onStartCountdown }) {
 
         <ul>
           {searchResults.map((track) => (
-            <li key={track.id} onClick={() => handleSongSelect(track)}>
+            <li key={track.id} onClick={() => actions.setSelectedSong(track)}>
               <img
                 src={track.album.images[0]?.url}
                 alt={`Album cover for ${track.name}`}
