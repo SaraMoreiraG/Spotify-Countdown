@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../../styles/home.css";
 
-const SPOTIFY_CLIENT_ID = "2b50384a52984850894b744e174717fb";
+const SPOTIFY_CLIENT_ID = process.env.MYCLIENT_ID;
 const SPOTIFY_REDIRECT_URI =
   "https://3000-saramoreira-spotifycoun-kbyzl3gapd7.ws-eu104.gitpod.io/";
 const SPOTIFY_AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${encodeURIComponent(
   SPOTIFY_REDIRECT_URI
-)}&response_type=token&show_dialog=true`;
+)}&response_type=token&scope=user-modify-playback-state&show_dialog=true`;
 
 function SpotifyAuth() {
   useEffect(() => {

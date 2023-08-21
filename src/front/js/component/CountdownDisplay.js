@@ -1,28 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
+import axios from "axios";
 
-function CountdownDisplay({ totalSeconds }) {
+function CountdownDisplay({ totalSeconds, onCountdownFinish }) {
+  const { store } = useContext(Context);
   const [timeRemaining, setTimeRemaining] = useState(totalSeconds);
 
-  const hours = Math.floor(timeRemaining / 3600);
-  const minutes = Math.floor((timeRemaining % 3600) / 60);
-  const seconds = timeRemaining % 60;
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining((prevTimeRemaining) => {
-        if (prevTimeRemaining > 0) {
-          return prevTimeRemaining - 1;
-        } else {
-          clearInterval(interval);
-          return prevTimeRemaining;
+    const interval = setInterval(async () => {
+      if (timeRemaining > 0) {
+        try {
+          const response = await axios.get(
+            `${process.env.BACKEND_URL}/get-countdown`
+          );
+          setTimeRemaining(response.data.time_remaining);
+        } catch (error) {
+          console.error("Error fetching countdown:", error);
         }
-      });
+      } else {
+        clearInterval(interval); // Stop the interval
+        onCountdownFinish(); // Notify the parent component that the countdown finished
+      }
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [timeRemaining, onCountdownFinish]); // Add timeRemaining and onCountdownFinish as dependencies
+
+  const hours = Math.floor(timeRemaining / 3600);
+  const minutes = Math.floor((timeRemaining % 3600) / 60);
+  const seconds = timeRemaining % 60;
 
   return (
     <div className="countdown-display">

@@ -12,14 +12,14 @@ h2 {
   font-size: 2em;
 }
 
-
 /* -------------------------------------------------------
                      SECTIONS
 -------------------------------------------------------- */
 .authorization,
 .search,
 .countdown-control,
-.countdown-display {
+.countdown-display,
+.spotify-player {
   position: fixed;
   top: 0;
   left: 0;
@@ -56,6 +56,9 @@ h2 {
 .countdown-display {
   padding-top: 20px;
   background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-izzy-331927_700x700.jpg?v=1678512151");
+}
+.spotify-player {
+  background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-robin-998599.jpg?v=1678512151");
 }
 .center-content {
   text-align: center;

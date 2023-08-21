@@ -1,14 +1,30 @@
 import React, { useState } from "react";
-import SelectedSong from "./SelectedSong";
+import axios from "axios"; // Import axios for making API requests
 
 function CountdownInputs({ onStartCountdown }) {
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
   const [seconds, setSeconds] = useState("");
 
-  const handleStartClick = () => {
+  const handleStartClick = async () => {
     const countdownTime = { hours, minutes, seconds };
-    onStartCountdown(countdownTime);
+
+    // Calculate the total countdown duration in seconds
+    const totalDuration = hours * 3600 + minutes * 60 + seconds;
+
+    // Call the API endpoint to start the countdown
+    try {
+      const response = await axios.post(
+        `${process.env.BACKEND_URL}/start-countdown`,
+        {
+          duration: totalDuration,
+        }
+      );
+      console.log(response.data); // Response from the backend
+      onStartCountdown(countdownTime); // Notify the parent component that the countdown has started
+    } catch (error) {
+      console.error("Error starting countdown:", error);
+    }
   };
 
   return (
@@ -33,7 +49,7 @@ function CountdownInputs({ onStartCountdown }) {
               value={minutes}
               onChange={(e) => {
                 let value = parseInt(e.target.value);
-                value = Math.max(0, Math.min(59, value)); // Ensure value is between 0 and 59
+                value = Math.max(0, Math.min(59, value));
                 setMinutes(value);
               }}
             />
@@ -45,7 +61,7 @@ function CountdownInputs({ onStartCountdown }) {
               value={seconds}
               onChange={(e) => {
                 let value = parseInt(e.target.value);
-                value = Math.max(0, Math.min(59, value)); // Ensure value is between 0 and 59
+                value = Math.max(0, Math.min(59, value));
                 setSeconds(value);
               }}
             />
@@ -54,7 +70,6 @@ function CountdownInputs({ onStartCountdown }) {
         <button className="button" onClick={handleStartClick}>
           Start countdown
         </button>
-        <SelectedSong />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import axios from "axios";
 import CountdownInputs from "./CountdownInputs"; // Import the CountdownInputs component
@@ -8,6 +8,13 @@ function SpotifySearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const accessToken = localStorage.getItem("spotifyAccessToken");
+
+  useEffect(() => {
+    if (!accessToken) {
+      // If there is no access token, reload the window
+      window.location.reload();
+    }
+  }, [accessToken]);
 
   const handleSearch = async () => {
     try {
