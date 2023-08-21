@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function SongSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const accessToken = localStorage.getItem("spotifyAccessToken");
+  const [selectedSong, setSelectedSong] = useState(null);
 
   const handleSearch = async () => {
     try {
@@ -11,7 +13,7 @@ function SongSearch() {
         `https://api.spotify.com/v1/search?q=${searchTerm}&type=track`,
         {
           headers: {
-            Authorization: `Bearer YOUR_ACCESS_TOKEN`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -20,6 +22,10 @@ function SongSearch() {
     } catch (error) {
       console.error("Error searching for songs:", error);
     }
+  };
+
+  const handleSongSelect = (song) => {
+    setSelectedSong(song);
   };
 
   return (
@@ -34,9 +40,30 @@ function SongSearch() {
 
       <ul>
         {searchResults.map((track) => (
-          <li key={track.id}>{track.name}</li>
+          <li
+            key={track.id}
+            onClick={() => handleSongSelect(track)}
+            className={
+              selectedSong && selectedSong.id === track.id ? "selected" : ""
+            }
+          >
+            <div className="track-info">
+              <img
+                src={track.album.images[0]?.url || "default-image-url.png"}
+                alt={`Album cover for ${track.name}`}
+              />
+              <p>{track.name}</p>
+            </div>
+          </li>
         ))}
       </ul>
+
+      {selectedSong && (
+        <div>
+          <h3>Selected Song:</h3>
+          <p>{selectedSong.name}</p>
+        </div>
+      )}
     </div>
   );
 }
