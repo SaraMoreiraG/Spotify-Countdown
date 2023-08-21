@@ -35,28 +35,32 @@ function SpotifySearch({ onSelect, onStartCountdown }) {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search for a song"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyPress={handleKeyPress}
-      />
-      <button onClick={handleSearch}>Search</button>
+    <div className="search">
+      <div className="center-content">
+        <input
+          type="text"
+          placeholder="Search for a song"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <button className="button-search" onClick={handleSearch}>
+          Search
+        </button>
 
-      <ul>
-        {searchResults.map((track) => (
-          <li key={track.id} onClick={() => handleSongSelect(track)}>
-            <img
-              src={track.album.images[0]?.url}
-              alt={`Album cover for ${track.name}`}
-              style={{ width: "50px", height: "50px", marginRight: "10px" }}
-            />
-            <span>{track.name}</span>
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {searchResults.map((track) => (
+            <li key={track.id} onClick={() => handleSongSelect(track)}>
+              <img
+                src={track.album.images[0]?.url}
+                alt={`Album cover for ${track.name}`}
+                style={{ width: "50px", height: "50px", marginRight: "10px" }}
+              />
+              <span>{track.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
