@@ -1,3 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik+Moonrocks&display=swap");
+.authorization {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url("https://musicradiocreative.com/cdn/shop/products/countdown-by-rachael-334843_700x700.jpg?v=1678512150");
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.authorization::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+.center-content {
+  text-align: center;
+}
+h1 {
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  font-family: "Rubik Moonrocks", cursive;
+  font-size: 5em;
+}
+.button {
+  padding: 10px 20px;
+  background-color: #fbc208;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Rubik Mono One", sans-serif;
+}
+
+.button:hover {
+  background-color: #fdde48;
+}
+
 .song-list {
   list-style: none;
   padding: 0;
