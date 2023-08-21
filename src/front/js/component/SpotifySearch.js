@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import CountdownInputs from "./CountdownInputs"; // Import the CountdownInputs component
 
-function SongSearch() {
+function SpotifySearch({ onSelect, onStartCountdown }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const accessToken = localStorage.getItem("spotifyAccessToken");
-  const [selectedSong, setSelectedSong] = useState(null);
 
   const handleSearch = async () => {
     try {
@@ -24,8 +24,14 @@ function SongSearch() {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const handleSongSelect = (song) => {
-    setSelectedSong(song);
+    onSelect(song);
   };
 
   return (
@@ -35,37 +41,24 @@ function SongSearch() {
         placeholder="Search for a song"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
       <button onClick={handleSearch}>Search</button>
 
       <ul>
         {searchResults.map((track) => (
-          <li
-            key={track.id}
-            onClick={() => handleSongSelect(track)}
-            className={
-              selectedSong && selectedSong.id === track.id ? "selected" : ""
-            }
-          >
-            <div className="track-info">
-              <img
-                src={track.album.images[0]?.url || "default-image-url.png"}
-                alt={`Album cover for ${track.name}`}
-              />
-              <p>{track.name}</p>
-            </div>
+          <li key={track.id} onClick={() => handleSongSelect(track)}>
+            <img
+              src={track.album.images[0]?.url}
+              alt={`Album cover for ${track.name}`}
+              style={{ width: "50px", height: "50px", marginRight: "10px" }}
+            />
+            <span>{track.name}</span>
           </li>
         ))}
       </ul>
-
-      {selectedSong && (
-        <div>
-          <h3>Selected Song:</h3>
-          <p>{selectedSong.name}</p>
-        </div>
-      )}
     </div>
   );
 }
 
-export default SongSearch;
+export default SpotifySearch;

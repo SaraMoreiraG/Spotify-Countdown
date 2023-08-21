@@ -1,10 +1,55 @@
-.track-info {
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc; /* Add a border */
+  width: 80%; /* Adjust the width as needed */
+}
+
+.song-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee; /* Add a border between items */
+}
+
+.song-list li:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+.song-details {
   display: flex;
   align-items: center;
 }
 
-.track-info img {
+.song-details img {
   width: 50px;
   height: 50px;
   margin-right: 10px;
+}
+
+/* Add a blue background color to the selected song */
+.song-list li.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Style the scroll bar */
+.song-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.song-list::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.song-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.countdown-inputs div input {
+  width: 50px;
 }
