@@ -40,3 +40,29 @@ def get_countdown():
 
     return jsonify({"time_remaining": rounded_time_remaining}), 200
 
+@api.route('/pause-countdown', methods=['POST'])
+def pause_countdown():
+    global paused_time_remaining, paused_start_time
+
+    if countdown_end_time is None:
+        return jsonify({"message": "Countdown not started"}), 400
+
+    current_time = datetime.datetime.now()
+    paused_time_remaining = (countdown_end_time - current_time).total_seconds()
+    paused_start_time = current_time
+
+    return jsonify({"message": "Countdown paused", "paused_time_remaining": paused_time_remaining}), 200
+
+@api.route('/resume-countdown', methods=['POST'])
+def resume_countdown():
+    global countdown_end_time, paused_time_remaining, paused_start_time
+
+    if paused_time_remaining is None:
+        return jsonify({"message": "Countdown not paused"}), 400
+
+    current_time = datetime.datetime.now()
+    countdown_end_time = current_time + datetime.timedelta(seconds=paused_time_remaining)
+    paused_time_remaining = None
+    paused_start_time = None
+
+    return jsonify({"message": "Countdown resumed", "end_time": countdown_end_time}), 200

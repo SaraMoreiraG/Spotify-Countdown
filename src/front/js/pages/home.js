@@ -15,31 +15,15 @@ export const Home = () => {
   const { store } = useContext(Context);
   const [countdownTime, setCountdownTime] = useState(null);
   const [countdownStarted, setCountdownStarted] = useState(false);
-  const [countdownFinished, setCountdownFinished] = useState(false); // Add state for countdownFinished
-  const accessToken = localStorage.getItem("spotifyAccessToken");
-  const refreshToken = localStorage.getItem("spotifyRefreshToken");
+  const [countdownFinished, setCountdownFinished] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
-    // Check if the access token is expired and handle refresh here
-    if (accessToken) {
-      const expirationTime = localStorage.getItem("spotifyTokenExpiration");
-      const currentTime = Date.now();
-
-      if (expirationTime && currentTime > parseInt(expirationTime, 10)) {
-        // Access token has expired, check for refresh token
-        if (!refreshToken) {
-          // No refresh token available, redirect to Spotify login
-          localStorage.removeItem("spotifyAccessToken");
-          localStorage.removeItem("spotifyRefreshToken");
-          localStorage.removeItem("spotifyTokenExpiration");
-          window.location.reload(); // Refresh the page to show SpotifyAuth component
-        } else {
-          // Call the refreshAccessToken function to refresh the access token
-          refreshAccessToken(refreshToken);
-        }
-      }
+    const storedAccessToken = localStorage.getItem("spotifyAccessToken");
+    if (storedAccessToken) {
+      setAccessToken(storedAccessToken);
     }
-  }, [accessToken, refreshToken]);
+  }, []);
 
   const handleStartCountdown = (time) => {
     setCountdownTime(time);
@@ -67,6 +51,7 @@ export const Home = () => {
                     countdownTime.minutes * 60 +
                     countdownTime.seconds
                   }
+                  changeSeconds={() => setCountdownStarted(false)}
                   onCountdownFinish={() => setCountdownFinished(true)}
                 />
               ) : (

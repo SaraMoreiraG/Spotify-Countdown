@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Rubik+Moonrocks&family=Rubik:wght@300;400&display=swap");
 
+body {
+  background-color: #8bcac0;
+}
+
 h1 {
   text-transform: uppercase;
   margin-bottom: 30px;
@@ -65,39 +69,72 @@ h2 {
 }
 
 /* -------------------------------------------------------
-                     BUTTONS
+                     SPOTIFY SEARCH
 -------------------------------------------------------- */
-.button,
-.button-search {
+.search-input {
+  font-family: "Rubik", sans-serif;
+  font-size: 3em;
+  text-align: center;
+  width: 550px;
   padding: 10px 20px;
-  color: white;
-  border: none;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  border: 3px solid #54aaa4;
+  background-color: #010612;
+  color: #fff;
+  transition: font-size 0.2s ease;
 }
-.button {
-  font-family: "Rubik Mono One", sans-serif;
-  background-color: #fbc208;
+.search-input::placeholder {
+  color: #fff;
+  font-family: "Rubik Moonrocks", cursive;
 }
+.search-input.clicked {
+  font-size: 2em; /* Change font size when button is clicked */
+}
+@media screen and (max-width: 600px) {
+  .search-input {
+    width: 350px;
+    font-size: 1.8em;
+  }
+}
+
 .button-search {
   font-family: "Rubik Moonrocks", cursive;
   font-weight: 400;
   text-transform: uppercase;
   background-color: #54aaa4;
+  transition: font-size 0.2s ease-out;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
 }
-.button:hover {
-  background-color: #fdde48;
+.button-search:hover {
+  background-color: #507675;
+  font-size: 1.5em;
+}
+.button-search.clicked {
+  font-size: 1em;
+}
+@media screen and (max-width: 600px) {
+  .button-search {
+    font-size: 1em;
+  }
+  .button-search.clicked {
+    font-size: 0.8em;
+  }
 }
 
 /* -------------------------------------------------------
-                     INPUTS
+                     COUNTDOWN INPUT
 -------------------------------------------------------- */
-.search input {
-  padding: 10px 20px;
-  border-radius: 4px;
-  margin-right: 5px;
-  font-family: "Rubik", sans-serif;
+.button:hover {
+  background-color: #fdde48;
+}
+.button {
+  font-family: "Rubik Mono One", sans-serif;
+  background-color: #fbc208;
 }
 .countdown-control input {
   height: 200px;
@@ -248,4 +285,10 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 4px;
   font-family: "Rubik", sans-serif;
   font-size: 25px;
+}
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
 }

@@ -17,6 +17,8 @@ function SpotifyAuth() {
     if (accessToken) {
       // Store the token in local storage for future use
       localStorage.setItem("spotifyAccessToken", accessToken);
+      // Remove the access token from the URL
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
 

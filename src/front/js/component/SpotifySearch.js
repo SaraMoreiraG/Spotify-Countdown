@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import axios from "axios";
-import CountdownInputs from "./CountdownInputs"; // Import the CountdownInputs component
 
 function SpotifySearch() {
   const { actions } = useContext(Context);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("most popular");
   const [searchResults, setSearchResults] = useState([]);
   const accessToken = localStorage.getItem("spotifyAccessToken");
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     if (!accessToken) {
@@ -28,8 +28,15 @@ function SpotifySearch() {
       );
 
       setSearchResults(response.data.tracks.items);
+      setButtonClicked(true);
     } catch (error) {
-      console.error("Error searching for songs:", error);
+      if (error.response && error.response.status === 401) {
+        // If access token expired, delete it and reload the page
+        localStorage.removeItem("spotifyAccessToken");
+        window.location.reload();
+      } else {
+        console.error("Error searching for songs:", error);
+      }
     }
   };
 
@@ -42,17 +49,23 @@ function SpotifySearch() {
   return (
     <div className="search">
       <div className="center-content">
-        <input
-          type="text"
-          placeholder="Search for a song"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-        <button className="button-search" onClick={handleSearch}>
-          Search
-        </button>
-
+        <div className="input-container">
+          <input
+            className={`search-input ${buttonClicked ? "clicked" : ""}`}
+            type="text"
+            placeholder="Choose your song!"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
+        </div>
+        <div className="button-container">
+          <button
+            className={`button-search ${buttonClicked ? "clicked" : ""}`}
+            onClick={handleSearch}
+          >
+            Search
+          </button>
+        </div>
         <ul>
           {searchResults.map((track) => (
             <li key={track.id} onClick={() => actions.setSelectedSong(track)}>
