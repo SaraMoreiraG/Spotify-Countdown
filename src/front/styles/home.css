@@ -13,7 +13,14 @@ h1 {
 h2 {
   text-transform: uppercase;
   font-family: "Rubik Moonrocks", cursive;
-  font-size: 2em;
+  font-size: 1.5em;
+}
+.button {
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
 }
 
 /* -------------------------------------------------------
@@ -69,6 +76,18 @@ h2 {
 }
 
 /* -------------------------------------------------------
+                     SPOTIFY AUTH
+-------------------------------------------------------- */
+.button.button-login {
+  background-color: #fbc208;
+  font-family: "Rubik Moonrocks", cursive;
+  font-size: 1.2em;
+}
+.button.button-login:hover {
+  background-color: #fdde48;
+}
+
+/* -------------------------------------------------------
                      SPOTIFY SEARCH
 -------------------------------------------------------- */
 .search-input {
@@ -97,18 +116,19 @@ h2 {
   }
 }
 
+/****** BUTTON ******/
 .button-search {
   font-family: "Rubik Moonrocks", cursive;
   font-weight: 400;
   text-transform: uppercase;
-  background-color: #54aaa4;
-  transition: font-size 0.2s ease-out;
   padding: 10px 20px;
-  color: white;
+  color: #fff;
+  background-color: #54aaa4;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 2em;
+  transition: font-size 0.2s ease-out;
 }
 .button-search:hover {
   background-color: #507675;
@@ -126,41 +146,7 @@ h2 {
   }
 }
 
-/* -------------------------------------------------------
-                     COUNTDOWN INPUT
--------------------------------------------------------- */
-.button:hover {
-  background-color: #fdde48;
-}
-.button {
-  font-family: "Rubik Mono One", sans-serif;
-  background-color: #fbc208;
-}
-.countdown-control input {
-  height: 200px;
-  width: 150px;
-  text-align: center;
-  font-size: 25px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  font-family: "Rubik", sans-serif;
-  text-transform: uppercase;
-  background-color: #507675;
-  border: solid 3px #507675;
-  color: #fff;
-}
-.countdown-control input::placeholder {
-  color: #fff; /* Change this to the desired color */
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-/* -------------------------------------------------------
-                     SCROLL LIST
--------------------------------------------------------- */
-
+/****** SCROLL LIST ******/
 .search ul {
   list-style: none;
   padding: 0;
@@ -191,7 +177,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-family: "Rubik", sans-serif;
   font-weight: 300;
 }
-
 /* Style the custom scrollbar */
 .search ul::-webkit-scrollbar {
   width: 8px; /* Width of the scrollbar */
@@ -218,7 +203,6 @@ input[type="number"]::-webkit-outer-spin-button {
 /* -------------------------------------------------------
                      SELECTED SONG
 -------------------------------------------------------- */
-
 .selected-song-container {
   position: fixed;
   top: 0;
@@ -228,7 +212,6 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #fff;
   z-index: 100;
 }
-
 .selected-song-container::before {
   content: "";
   position: fixed;
@@ -239,25 +222,18 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: -1;
 }
-
 .selected-song-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-top: 20px;
 }
-
 .selected-song-details {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
-
-.selected-song-details button {
-  align-self: flex-end;
-}
-
 .selected-song-details img {
   height: 100px;
   width: 100px;
@@ -265,6 +241,62 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .song-title {
   font-size: 24px;
+}
+.button.selected-song {
+  font-family: "Rubik Moonrocks", cursive;
+  background-color: #54aaa4;
+  font-size: 1.2em;
+  align-self: flex-end;
+}
+.button.selected-song:hover {
+  background-color: #507675;
+}
+@media screen and (max-width: 768px) {
+  .button.selected-song {
+    padding-top: 10px;
+    border-radius: 0;
+    width: 100%;
+  }
+  .song-title {
+    font-size: 1.5em;
+  }
+  .selected-song-details img {
+    height: 70px;
+    width: 70px;
+    margin-right: 10px;
+  }
+}
+
+/* -------------------------------------------------------
+                     COUNTDOWN INPUTS
+-------------------------------------------------------- */
+.countdown-control input {
+  height: 200px;
+  width: 150px;
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-family: "Rubik Mono One", sans-serif;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: solid 3px #54aaa4;
+  color: #fff;
+}
+.countdown-control input::placeholder {
+  color: #fff; /* Change this to the desired color */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.button.button-start {
+  font-family: "Rubik Mono One", sans-serif;
+  background-color: #fbc208;
+}
+.button.button-start:hover {
+  background-color: #fdde48;
 }
 
 /* -------------------------------------------------------
@@ -291,4 +323,43 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 10px;
   justify-content: center;
   margin-top: 10px;
+}
+.button.button-control {
+  background-color: #54aaa4;
+}
+.button.button-control:hover {
+  background-color: #507675;
+}
+
+/* -------------------------------------------------------
+                     SPOTIFY PLAYER
+-------------------------------------------------------- */
+.player {
+  background-color: #0a0a0ad4;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* -------------------------------------------------------
+                     FOOTER
+-------------------------------------------------------- */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 5%;
+}
+.copyright {
+  color: #fff;
+  padding: 5px 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 12px;
+}
+.copyright a {
+  color: #fff;
 }

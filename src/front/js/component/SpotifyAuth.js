@@ -30,7 +30,7 @@ function SpotifyAuth() {
     <div className="authorization">
       <div className="center-content">
         <h1>Set your music countdown</h1>
-        <button className="button" onClick={handleLogin}>
+        <button className="button button-login" onClick={handleLogin}>
           Login with Spotify
         </button>
       </div>

@@ -28,7 +28,7 @@ function CountdownInputs({ onStartCountdown }) {
   };
 
   return (
-    <div className="countdown-control">
+    <div className="countdown-control ">
       <div className="center-content">
         <div className="countdown-inputs d-flex">
           <div>
@@ -67,7 +67,7 @@ function CountdownInputs({ onStartCountdown }) {
             />
           </div>
         </div>
-        <button className="button" onClick={handleStartClick}>
+        <button className="button button-start" onClick={handleStartClick}>
           Start countdown
         </button>
       </div>
