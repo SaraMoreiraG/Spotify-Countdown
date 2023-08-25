@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../store/appContext";
 import axios from "axios";
 
-function CountdownDisplay({ totalSeconds, changeSeconds, onCountdownFinish }) {
-  const { store } = useContext(Context);
+import { Context } from "../store/appContext";
+
+function CountdownDisplay({ totalSeconds }) {
+  const { store, actions } = useContext(Context);
   const [timeRemaining, setTimeRemaining] = useState(totalSeconds);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -20,14 +21,14 @@ function CountdownDisplay({ totalSeconds, changeSeconds, onCountdownFinish }) {
         }
       } else {
         clearInterval(interval);
-        if (!isPaused) onCountdownFinish();
+        if (!isPaused) actions.setCountdownFinished(true);
       }
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [timeRemaining, onCountdownFinish, isPaused]);
+  }, [timeRemaining, store.setCountdownFinished, isPaused]);
 
   const hours = Math.floor(timeRemaining / 3600);
   const minutes = Math.floor((timeRemaining % 3600) / 60);
@@ -56,7 +57,7 @@ function CountdownDisplay({ totalSeconds, changeSeconds, onCountdownFinish }) {
   };
 
   const handleChange = () => {
-    changeSeconds();
+    actions.setCountdownStarted(false);
   };
 
   return (
@@ -69,21 +70,21 @@ function CountdownDisplay({ totalSeconds, changeSeconds, onCountdownFinish }) {
           <div className="time">{seconds.toString().padStart(2, "0")}</div>
         </div>
         <div className="button-container">
-          <button className="button-search" onClick={handleRestart}>
-            <i class="fa-solid fa-backward-step"></i>
+          <button className="button button-control" onClick={handleRestart}>
+            <i className="fa-solid fa-backward-step"></i>
           </button>
           <button
-            className="button-search"
+            className="button button-control"
             onClick={isPaused ? handleResume : handlePause}
           >
             {isPaused ? (
-              <i class="fa-solid fa-play"></i>
+              <i className="fa-solid fa-play"></i>
             ) : (
-              <i class="fa-solid fa-pause"></i>
+              <i className="fa-solid fa-pause"></i>
             )}
           </button>
-          <button className="button-search" onClick={handleChange}>
-            <i class="fa-solid fa-arrow-rotate-left"></i>
+          <button className="button button-control" onClick={handleChange}>
+            <i className="fa-solid fa-arrow-rotate-left"></i>
           </button>
         </div>
       </div>

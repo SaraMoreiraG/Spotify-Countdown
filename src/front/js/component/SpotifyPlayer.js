@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { Context } from "../store/appContext";
 
 function SpotifyPlayer({ trackUri }) {
+  const { actions } = useContext(Context);
   const [trackInfo, setTrackInfo] = useState(null);
-  const iframeRef = useRef(null);
 
   useEffect(() => {
     // Fetch track information using the track URI
@@ -31,34 +32,24 @@ function SpotifyPlayer({ trackUri }) {
     }
   }, [trackUri]);
 
-  useEffect(() => {
-    if (iframeRef.current) {
-      const iframeDocument = iframeRef.current.contentDocument;
-      const playButton = iframeDocument.querySelector(
-        '[data-testid="play-pause-button"]'
-      );
-      console.log(playButton);
-      if (playButton) {
-        playButton.click();
-      }
-    }
-  }, [iframeRef.current]);
+  const handleClick = () => {
+    actions.clearSelectedSong();
+    actions.setCountdownStarted(false);
+    actions.setCountdownFinished(false);
+  };
 
   return (
     <div className="spotify-player">
       {trackInfo && (
-        <div className="center-content">
-          <h3>Now Playing:</h3>
-          <p>
-            {trackInfo.name} by {trackInfo.artists[0].name}
-          </p>
+        <div className="center-content player">
+          <h2>Playing from Spotify: </h2>
           <iframe
-            ref={iframeRef}
+            className="mt-3"
             src={`https://open.spotify.com/embed/track/${
               trackUri.split(":")[2]
             }`}
-            width="300"
-            height="80"
+            width="350"
+            height="100"
             allowtransparency="true"
             allow="encrypted-media"
             title="Spotify Player"
@@ -66,6 +57,15 @@ function SpotifyPlayer({ trackUri }) {
               console.log("Iframe loaded");
             }}
           ></iframe>
+          <div>
+            <button
+              type="button"
+              className="button button-start"
+              onClick={handleClick}
+            >
+              Start again
+            </button>
+          </div>
         </div>
       )}
     </div>

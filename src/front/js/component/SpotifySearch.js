@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import axios from "axios";
 
 function SpotifySearch() {
-  const { actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const [searchTerm, setSearchTerm] = useState("most popular");
   const [searchResults, setSearchResults] = useState([]);
   const accessToken = localStorage.getItem("spotifyAccessToken");

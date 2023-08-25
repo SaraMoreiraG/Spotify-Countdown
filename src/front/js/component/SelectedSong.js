@@ -9,11 +9,11 @@ function SelectedSong() {
 
   return (
     <div className="selected-song-container">
-      <div className="selected-song-wrapper">
-        <div className="selected-song-title col-3">
+      <div className="selected-song-wrapper row">
+        <div className="selected-song-title col-md-3 col-sm-12">
           <h2>Selected Song:</h2>
         </div>
-        <div className="selected-song-details col-6">
+        <div className="selected-song-details col-md-6 col-sm-12">
           <div>
             <img
               src={
@@ -33,8 +33,11 @@ function SelectedSong() {
             </p>
           </div>
         </div>
-        <div className="selected-song-button col-3">
-          <button className="button-search" onClick={actions.clearSelectedSong}>
+        <div className="col-md-3 col-sm-12">
+          <button
+            className="button selected-song"
+            onClick={actions.clearSelectedSong}
+          >
             Change
           </button>
         </div>
