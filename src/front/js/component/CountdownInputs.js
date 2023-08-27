@@ -45,7 +45,7 @@ function CountdownInputs({ onStartCountdown }) {
           <div>
             <input
               type="number"
-              placeholder="Minutes"
+              placeholder="Min"
               value={minutes}
               onChange={(e) => {
                 let value = parseInt(e.target.value);
@@ -57,7 +57,7 @@ function CountdownInputs({ onStartCountdown }) {
           <div>
             <input
               type="number"
-              placeholder="Seconds"
+              placeholder="Sec"
               value={seconds}
               onChange={(e) => {
                 let value = parseInt(e.target.value);
